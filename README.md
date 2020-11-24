@@ -103,18 +103,18 @@ But when the anti-crawler mechanism is strong, rewriting the middleware is a ver
   {
     "bloggers":["2803301701","2286908003"]
   }   
-
+  ```
+  ```
+  Example
   POST localhost:3002/tags/set_keywords
   {
     "keywords":["中国","新闻"]
   }
-
+  ```
+  ```
+  Example
   GET localhost:3002/tags/cache_keywords 
   ```    
-
-  you can find blogger ID in any detailed page like this
-  [![DtUx9U.png](https://s3.ax1x.com/2020/11/24/DtUx9U.png)](https://imgchr.com/i/DtUx9U)
-  ID `2286908003` is in the url `https://weibo.com/2286908003/JvkHgvqE1`
 7. wait 30 minutes or call `/task`(local debug environment)
   ```
   Example:
@@ -140,25 +140,29 @@ But when the anti-crawler mechanism is strong, rewriting the middleware is a ver
 if you want to do cluster, post `/tags/keywords`, download corpus, `python keywords.py`, adjust and post `/category/set`
  Get `/category/query` to show hot topics
 
+you can find blogger ID in any detailed page like this
+[![DtUx9U.png](https://s3.ax1x.com/2020/11/24/DtUx9U.png)](https://imgchr.com/i/DtUx9U)
+ID `2286908003` is in the url `https://weibo.com/2286908003/JvkHgvqE1`
+
 ## Api list
 
-[details ](https://github.com/ruilisi/cs-server/tree/master/controller/README.md)
+[details ](https://github.com/ruilisi/weibo-crawler/tree/master/controller/README.md)
 
 ---
 
 |  API   | CALL  | ROUTER  |  FUNCTION  |
 |  :----  | :----   | :----  | :----  |
-| [Ping](https://github.com/ruilisi/go-crawler/tree/master/controller/application.go) | GET | /ping | ping |
-| [Task](https://github.com/ruilisi/go-crawler/tree/master/controller/task.go) | GET | /task | (auto run every 30 minutes) crawler task |
-| [Query_blogs](https://github.com/ruilisi/go-crawler/tree/master/controller/query.go) | POST | /query_blogs | query according to different parameters |
-| [Add_bloggers](https://github.com/ruilisi/go-crawler/tree/master/controller/blogger.go) | POST | /add_bloggers | add bloggers in task list |
-| [Set_category](https://github.com/ruilisi/go-crawler/tree/master/controller/category.go) | GET | /category/set | set category by clustering result |
-| [Set_category_name](https://github.com/ruilisi/go-crawler/tree/master/controller/category.go) | POST | /category/set_name | rename category |
-| [Query_category](https://github.com/ruilisi/go-crawler/tree/master/controller/category.go) | GET | /category/query | query category |
-| [Query_tags](https://github.com/ruilisi/go-crawler/tree/master/controller/query.go) | GET | /tags/query | query tags |
-| [Cache_keywords](https://github.com/ruilisi/go-crawler/tree/master/controller/tag.go) | GET | /tags/cache_keywords | save keywords to redis|
-| [Get_keywords](https://github.com/ruilisi/go-crawler/tree/master/controller/query.go) | POST | /tags/keywords | query keywords and write to txt for clustering|
-| [Set_keywords](https://github.com/ruilisi/go-crawler/tree/master/controller/tag.go) | POST | /tags/set_keywords | add keywords as tags |
+| [Ping](https://github.com/ruilisi/weibo-crawler/tree/master/controller/application.go) | GET | /ping | ping |
+| [Task](https://github.com/ruilisi/weibo-crawler/tree/master/controller/task.go) | GET | /task | (auto run every 30 minutes) crawler task |
+| [Query_blogs](https://github.com/ruilisi/weibo-crawler/tree/master/controller/query.go) | POST | /query_blogs | query according to different parameters |
+| [Add_bloggers](https://github.com/ruilisi/weibo-crawler/tree/master/controller/blogger.go) | POST | /add_bloggers | add bloggers in task list |
+| [Set_category](https://github.com/ruilisi/weibo-crawler/tree/master/controller/category.go) | GET | /category/set | set category by clustering result |
+| [Set_category_name](https://github.com/ruilisi/weibo-crawler/tree/master/controller/category.go) | POST | /category/set_name | rename category |
+| [Query_category](https://github.com/ruilisi/weibo-crawler/tree/master/controller/category.go) | GET | /category/query | query category |
+| [Query_tags](https://github.com/ruilisi/weibo-crawler/tree/master/controller/query.go) | GET | /tags/query | query tags |
+| [Cache_keywords](https://github.com/ruilisi/weibo-crawler/tree/master/controller/tag.go) | GET | /tags/cache_keywords | save keywords to redis|
+| [Get_keywords](https://github.com/ruilisi/weibo-crawler/tree/master/controller/query.go) | POST | /tags/keywords | query keywords and write to txt for clustering|
+| [Set_keywords](https://github.com/ruilisi/weibo-crawler/tree/master/controller/tag.go) | POST | /tags/set_keywords | add keywords as tags |
 
 ---
 

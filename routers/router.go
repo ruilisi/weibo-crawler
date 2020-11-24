@@ -51,7 +51,7 @@ func SetupRouter() *gin.Engine {
 	{
 		tags.GET("/query", service.QueryTagsHandler)
 		//tags.POST("/cache", service.SaveToRedisHandler)
-		tags.POST("/cache_keywords", service.SaveKeywordToRedisHandler)
+		tags.GET("/cache_keywords", service.SaveKeywordToRedisHandler)
 		tags.POST("/keywords", service.QueryKeywordsHandler)
 		tags.POST("/set_keywords", service.SetKeywordsHandler)
 	}
