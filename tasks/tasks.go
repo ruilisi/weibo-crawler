@@ -49,7 +49,14 @@ const (
 
 //FetchFollows get his follow list
 func FetchFollows(userID string) []string {
-	c := colly.NewCollector()
+	c := colly.NewCollector(
+		colly.Async(true),
+	)
+	limit := new(colly.LimitRule)
+	limit.Delay = 2 * time.Second
+	limit.Parallelism = 3
+	c.Limit(limit)
+
 	followIDs := []string{}
 
 	c.OnRequest(func(r *colly.Request) {
@@ -101,6 +108,7 @@ func FetchFollows(userID string) []string {
 	} else {
 		log.Fatal(err)
 	}
+	c.Wait()
 	return followIDs
 }
 
@@ -123,7 +131,14 @@ func Fetch() {
 }
 
 func FetchPersonalPage(userID string) []string {
-	c := colly.NewCollector()
+	c := colly.NewCollector(
+		colly.Async(true),
+	)
+	limit := new(colly.LimitRule)
+	limit.Delay = 2 * time.Second
+	limit.Parallelism = 3
+	c.Limit(limit)
+
 	contentIDs := []string{}
 	lastest, res := models.FindLastest(userID)
 
@@ -168,6 +183,7 @@ func FetchPersonalPage(userID string) []string {
 	} else {
 		log.Fatal(err)
 	}
+	c.Wait()
 	return contentIDs
 }
 
@@ -182,7 +198,13 @@ func FetchBlogDetails(userID, contentID string) error {
 	var video, article string
 	var imgs pq.StringArray
 
-	c := colly.NewCollector()
+	c := colly.NewCollector(
+		colly.Async(true),
+	)
+	limit := new(colly.LimitRule)
+	limit.Delay = 2 * time.Second
+	limit.Parallelism = 3
+	c.Limit(limit)
 
 	c.OnRequest(func(r *colly.Request) {
 		r.Headers.Set("User-Agent", utils.RandomUserAgent())
@@ -302,6 +324,7 @@ func FetchBlogDetails(userID, contentID string) error {
 	} else {
 		return err
 	}
+	c.Wait()
 	return fetchErr
 }
 
@@ -309,7 +332,13 @@ func FetchBloggerDetails(userID string) error {
 	var username, avatar string
 	var follows int64
 	var fetchErr error
-	c := colly.NewCollector()
+	c := colly.NewCollector(
+		colly.Async(true),
+	)
+	limit := new(colly.LimitRule)
+	limit.Delay = 2 * time.Second
+	limit.Parallelism = 3
+	c.Limit(limit)
 
 	c.OnRequest(func(r *colly.Request) {
 		r.Headers.Set("User-Agent", utils.RandomUserAgent())
@@ -373,6 +402,7 @@ func FetchBloggerDetails(userID string) error {
 	} else {
 		fetchErr = err
 	}
+	c.Wait()
 	return fetchErr
 }
 

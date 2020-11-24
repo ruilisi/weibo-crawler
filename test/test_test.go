@@ -2,6 +2,7 @@ package test_test
 
 import (
 	"fmt"
+	"go-crawler/db"
 	"net/http"
 
 	. "github.com/onsi/ginkgo"
@@ -82,5 +83,16 @@ var _ = Describe("Test", func() {
 		// Ω(len(rs)).To(Equal(3))
 		// })
 		// })
+
+		Measure("query", func(b Benchmarker) {
+			runtime := b.Time("runtime", func() {
+				db.DB.Exec("TRUNCATE TABLE blogs")
+				res := Get(nil, "/task", "")
+				res.ToJSON(&result)
+				Expect(res.Response().StatusCode).To(Equal(http.StatusOK))
+				Ω(fmt.Sprint(result["status"])).To(Equal("success"))
+			})
+			Ω(runtime.Seconds()).Should(BeNumerically("<", 20.0), "time out")
+		}, 10)
 	})
 })

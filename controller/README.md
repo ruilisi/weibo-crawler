@@ -285,7 +285,7 @@ Category id is the classfication of the tags result.
 
 ---
 
-##  POST /tags/cache_keywords
+##  GET /tags/cache_keywords
   
 Save or update redis keywords from database
 

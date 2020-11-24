@@ -1,18 +1,16 @@
-# go_crawler
+# weibo-crawler
 
-Go_crawler is a crawler project based on golang colly framework to crawl weibo sites and get information. It crawls web content by regular expressions and Xpath selector, spatially transforms keywords using word vector model, and clusters text content by HDBSCAN clustering algorithm.
+Weibo-crawler is a crawler project based on golang colly framework to crawl weibo sites and get information. It crawls web content by regular expressions and Xpath selector, spatially transforms keywords using word vector model, and clusters text content by HDBSCAN clustering algorithm.
 
 ## Features
 
+* Comprehensive capture of user information  
+* Multi-dimensional collection of weibo content  
+* Timed incremental acquisition  
+* Keyword Cluster Analysis  
+* Category hotspot sorting  
 
-**Comprehensive capture of user information  
-Multi-dimensional collection of weibo content  
-Timed incremental acquisition  
-Keyword Cluster Analysis  
-Category hotspot sorting**  
-
-
-Go_crawler is based on following tools
+Weibo-crawler is based on following tools
 
 |name|description|
 |------|--------|
@@ -94,14 +92,50 @@ But when the anti-crawler mechanism is strong, rewriting the middleware is a ver
 ## How to use
 
 1. install tools and dependency mentioned above
-2. config application.yml, establish connection
-3. `go run main.go -db create `
-4. `go run main.go -db migrate`
-5. `go run main.go` 
-6. Add bloggers & keywords  post `/add_bloggers`, `/tags/set_keywords` and  `/tags/cache_keywords`
+2. config your own application.yml or use default, establish redis connection
+3. `go run main.go -db create `  to create database 
+4. `go run main.go -db migrate` to create or migrate tables
+5. `go run main.go` to start server
+6. add bloggers & keywords via post `/add_bloggers`, `/tags/set_keywords` and  `/tags/cache_keywords`, parameters refer to Api list details
+  ```
+  Example:
+  POST localhost:3002/add_bloggers
+  {
+    "bloggers":["2803301701","2286908003"]
+  }   
+
+  POST localhost:3002/tags/set_keywords
+  {
+    "keywords":["中国","新闻"]
+  }
+
+  GET localhost:3002/tags/cache_keywords 
+  ```    
+
+  you can find blogger ID in any detailed page like this
+  [![DtUx9U.png](https://s3.ax1x.com/2020/11/24/DtUx9U.png)](https://imgchr.com/i/DtUx9U)
+  ID `2286908003` is in the url `https://weibo.com/2286908003/JvkHgvqE1`
 7. wait 30 minutes or call `/task`(local debug environment)
+  ```
+  Example:
+  GET localhost:3002/task
+  ```    
 8. let the bullets fly 
 9. Post `/query_blogs` to show datas
+  ```
+  Example:
+  POST localhost:3002/query_blogs
+  {
+    "start_time":"2019-11-13 12:00:00",
+    "end_time":"",
+    "last_time":"",
+    "topic":[],
+    "super_topic":[],
+    "keywords":[],
+    "category":"",
+    "amount":"10"
+  }
+  ```    
 
 if you want to do cluster, post `/tags/keywords`, download corpus, `python keywords.py`, adjust and post `/category/set`
  Get `/category/query` to show hot topics
@@ -122,7 +156,7 @@ if you want to do cluster, post `/tags/keywords`, download corpus, `python keywo
 | [Set_category_name](https://github.com/ruilisi/go-crawler/tree/master/controller/category.go) | POST | /category/set_name | rename category |
 | [Query_category](https://github.com/ruilisi/go-crawler/tree/master/controller/category.go) | GET | /category/query | query category |
 | [Query_tags](https://github.com/ruilisi/go-crawler/tree/master/controller/query.go) | GET | /tags/query | query tags |
-| [Cache_keywords](https://github.com/ruilisi/go-crawler/tree/master/controller/tag.go) | POST | /tags/cache_keywords | save keywords to redis|
+| [Cache_keywords](https://github.com/ruilisi/go-crawler/tree/master/controller/tag.go) | GET | /tags/cache_keywords | save keywords to redis|
 | [Get_keywords](https://github.com/ruilisi/go-crawler/tree/master/controller/query.go) | POST | /tags/keywords | query keywords and write to txt for clustering|
 | [Set_keywords](https://github.com/ruilisi/go-crawler/tree/master/controller/tag.go) | POST | /tags/set_keywords | add keywords as tags |
 
