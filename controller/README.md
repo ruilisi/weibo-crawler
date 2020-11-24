@@ -12,7 +12,7 @@ API list
   return:
   {
     pong
-}
+  } 
 </pre>
 </div>
 
@@ -30,7 +30,7 @@ This task is about to request pre-stored blogger data, get everyone's homepage b
   return:
   {
     "status": "succes"
-}
+  }
  </pre>
 </div>
 
@@ -68,7 +68,9 @@ Query Parameters
 }
 </pre>
 </div>
+
 ### Response
+
 <div>
 <pre>
   success:
