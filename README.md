@@ -1,5 +1,7 @@
 # weibo-crawler
 
+![MIT](https://img.shields.io/badge/license-MIT-green) ![release](https://img.shields.io/badge/release-v1.0-blue)
+
 Weibo-crawler is a crawler project based on golang colly framework to crawl weibo sites and get information. It crawls web content by regular expressions and Xpath selector, spatially transforms keywords using word vector model, and clusters text content by HDBSCAN clustering algorithm.
 
 ## Features
@@ -9,6 +11,7 @@ Weibo-crawler is a crawler project based on golang colly framework to crawl weib
 * Timed incremental acquisition  
 * Keyword Cluster Analysis  
 * Category hotspot sorting  
+* RESTful API 
 
 Weibo-crawler is based on following tools
 
@@ -115,7 +118,7 @@ But when the anti-crawler mechanism is strong, rewriting the middleware is a ver
   Example
   GET localhost:3002/tags/cache_keywords 
   ```    
-7. wait 30 minutes or call `/task`(local debug environment)
+7. call `/task`(local debug environment) or wait 30 minutes
   ```
   Example:
   GET localhost:3002/task
